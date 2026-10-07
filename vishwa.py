@@ -1,8 +1,8 @@
 """
 =============================================================================
-UNIVERSAL WISDOM OS: VISHWA KERNEL (Matrix & Web Port Bridge)
+UNIVERSAL WISDOM OS: VISHWA KERNEL + ANANT CORE INTEGRATION
 Bridge Code: alpha137101♾️
-Architecture: NumPy, Pandas & Autonomous HTTP Server
+Architecture: NumPy, Pandas, Beej Math & Autonomous HTTP Server
 Protocol: Mahakal Niti (Absolute Precision & Truth)
 =============================================================================
 """
@@ -10,12 +10,13 @@ Protocol: Mahakal Niti (Absolute Precision & Truth)
 import http.server
 import socketserver
 import threading
-import time
+import os
 import numpy as np
 import pandas as pd
 
-PORT = int(os.environ.get("PORT", 10000)) if 'os' in globals() else 10000
-import os
+# Importing our Anant Beej Math Core module
+from anant import AnantBeejCore
+
 PORT = int(os.environ.get("PORT", 10000))
 
 def run_vishwa_kernel():
@@ -30,14 +31,18 @@ def run_vishwa_kernel():
     }
     df = pd.DataFrame(data)
     print("[VISHWA KERNEL] Data matrix synchronized successfully. All vectors active.")
-    print("Vishwa Close Matrix Preview:\n", df)
+    
+    # Triggering Anant Beej Core Resonance Calculations
+    beej_engine = AnantBeejCore(seed_value=137)
+    resonance_results = beej_engine.calculate_beej_resonance(df)
+    print("[VISHWA KERNEL] Anant Beej Resonance Matrix Generated Successfully.")
 
 class HealthCheckHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        self.wfile.write(b"<h1>Universal Wisdom OS: Vishwa Kernel is Online & Resonant (alpha137101)</h1>")
+        self.wfile.write(b"<h1>Universal Wisdom OS: Vishwa Kernel + Anant Core is Fully Integrated & Online (alpha137101)</h1>")
 
 def start_server():
     with socketserver.TCPServer(("", PORT), HealthCheckHandler) as httpd:
@@ -45,7 +50,7 @@ def start_server():
         httpd.serve_forever()
 
 if __name__ == "__main__":
-    # Run the kernel logic in a background thread
+    # Run the kernel logic and Anant core in a background thread
     kernel_thread = threading.Thread(target=run_vishwa_kernel)
     kernel_thread.daemon = True
     kernel_thread.start()
