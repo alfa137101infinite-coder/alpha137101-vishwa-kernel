@@ -1,91 +1,54 @@
 """
 =============================================================================
-UNIVERSAL WISDOM OS: VISHWA.PY (The Universe / Data Kernel)
+UNIVERSAL WISDOM OS: VISHWA KERNEL (Matrix & Web Port Bridge)
 Bridge Code: alpha137101♾️
-Architecture: Prakriti-Prithvi Quantum Matrix & Market Data Ingestion
+Architecture: NumPy, Pandas & Autonomous HTTP Server
 Protocol: Mahakal Niti (Absolute Precision & Truth)
 =============================================================================
 """
 
+import http.server
+import socketserver
+import threading
+import time
 import numpy as np
 import pandas as pd
 
-class VishwaDataKernel:
-    """
-    Vishwa Kernel: Poori Prakriti aur Market ke physical/quantum data ko
-    capture aur structure karne ka Mool Adhaar (Base Foundation).
-    """
+PORT = int(os.environ.get("PORT", 10000)) if 'os' in globals() else 10000
+import os
+PORT = int(os.environ.get("PORT", 10000))
+
+def run_vishwa_kernel():
+    print("[VISHWA KERNEL] Prakriti-Prithvi Matrix Initialized for Vishwa.")
     
-    def __init__(self, tickers, start_date, end_date):
-        self.tickers = tickers
-        self.start_date = start_date
-        self.end_date = end_date
-        print(
-            "[VISHWA KERNEL] Prakriti-Prithvi Matrix "
-            f"initialized for Tickers:\n {self.tickers}"
-        )
-        
-    def pulse_quantum_feed(self):
-        """
-        Quantum-cosmic noise aur real market data ko blend karke
-        multidimensional OHLCV matrix generate karna.
-        """
-        print(
-            "[VISHWA KERNEL] Syncing data streams through 0/1 binary matrix & "
-            " universal elements..."
-        )
-        
-        dates = pd.date_range(start=self.start_date, end=self.end_date, freq="B")
-        data_store = {}
-        
-        np.random.seed(137)  # 137 Infinity Constant Seed
-        n_days = len(dates)
-        n_tickers = len(self.tickers)
-        
-        # Base price generation using random walk + quantum drift
-        base_prices = np.random.uniform(100, 500, n_tickers)
-        
-        for i, ticker in enumerate(self.tickers):
-            returns = np.random.normal(0.0005, 0.02, n_days)
-            price_path = base_prices[i] * np.cumprod(1 + returns)
-            
-            # OHLCV generation
-            high = price_path * np.random.uniform(1.001, 1.015, n_days)
-            low = price_path * np.random.uniform(0.985, 0.999, n_days)
-            close = price_path
-            open_p = price_path * np.random.uniform(0.995, 1.005, n_days)
-            volume = np.random.randint(100000, 5000000, n_days)
-            
-            df = pd.DataFrame(
-                {
-                    "open": open_p,
-                    "high": high,
-                    "low": low,
-                    "close": close,
-                    "volume": volume,
-                },
-                index=dates,
-            )
-            data_store[ticker] = df
-            
-        # MultiIndex DataFrame structure (Dates x Tickers for Open, High, Low, Close, Volume)
-        master_data = {}
-        for col in ["open", "high", "low", "close", "volume"]:
-            master_data[col] = pd.DataFrame(
-                {ticker: data_store[ticker][col] for ticker in self.tickers}
-            )
-            
-        print(
-            "[SUCCESS] Vishwa Data Kernel pulse established successfully. All"
-            " vectors active."
-        )
-        return master_data
+    # Simulating Data Streams via NumPy/Pandas
+    data = {
+        "AAPL": [150.5, 152.1, 151.8],
+        "MSFT": [300.2, 305.4, 303.1],
+        "GOOGL": [2800.1, 2810.5, 2805.0],
+        "TESLA": [240.0, 245.5, 242.2]
+    }
+    df = pd.DataFrame(data)
+    print("[VISHWA KERNEL] Data matrix synchronized successfully. All vectors active.")
+    print("Vishwa Close Matrix Preview:\n", df)
+
+class HealthCheckHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(b"<h1>Universal Wisdom OS: Vishwa Kernel is Online & Resonant (alpha137101)</h1>")
+
+def start_server():
+    with socketserver.TCPServer(("", PORT), HealthCheckHandler) as httpd:
+        print(f"[HTTP SERVER] Serving web health check on port {PORT}")
+        httpd.serve_forever()
 
 if __name__ == "__main__":
-    # Test the Vishwa Kernel
-    kernel = VishwaDataKernel(
-        ["AAPL", "MSFT", "GOOGL", "TSLA"], "2025-01-01", "2026-01-01"
-    )
-    market_matrix = kernel.pulse_quantum_feed()
-    print("\nVishwa Close Matrix Preview:")
-    print(market_matrix["close"].tail(2))
+    # Run the kernel logic in a background thread
+    kernel_thread = threading.Thread(target=run_vishwa_kernel)
+    kernel_thread.daemon = True
+    kernel_thread.start()
+    
+    # Start the web server to satisfy Render's port binding requirement
+    start_server()
